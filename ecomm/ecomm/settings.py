@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY='SECRET_KEY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG', default=False, cast=bool)
@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
 
     'paypal.standard.ipn',
+
+    'environ'
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -99,23 +101,23 @@ WSGI_APPLICATION = 'ecomm.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'anton_db',
-        'USER': 'postgres',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'anton_db',
+#         'USER': 'postgres',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -138,16 +140,16 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-PAYPAL_CLIENT_ID = env('PAYPAL_SANDBOX_CLIENT_ID')
-PAYPAL_SECRET_ID = env('PAYPAL_SANDBOX_SECRET_KEY')
+PAYPAL_CLIENT_ID='AdELVoue4pmZp0PMOhxqDJrDVyhNjp3Ii-X_PRRQwCsuIJ5MFMxqk6s8VCHMYOYTF_Evnj5s9_Oq5cPB' 
+PAYPAL_SECRET_ID='EJ85WPALErQ07i5YjoEQaCyIEA3qY_GRnP_VfOnEVWeB5zvWPi7pM-pvbI4gvf2sh52IsVX5k0bC3ANP'
 
-PAYPAL_RECEIVER_EMAIL = env('PAYPAL_RECEIVER_EMAIL')
-PAYPAL_TEST = env('PAYPAL_TEST', default=False, cast=bool)
+PAYPAL_RECEIVER_EMAIL='PAYPAL_tiffanyfebie@gmail.com'
+PAYPAL_TEST=env('PAYPAL_TEST', default=False, cast=bool)
 CORS_ORIGIN_ALLOW_ALL = True
 
 
-DEFAULT_FROM_EMAIL= env('DEFAULT_FROM_EMAIL')
-NOTIFY_EMAIL= env('NOTIFY_EMAIL')
+DEFAULT_FROM_EMAIL='tiffanyfebie@gmail.com'
+NOTIFY_EMAIL='NOTIFY_EMAIL'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -173,6 +175,15 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+CORS_REPLACE_HTTPS_REFERER      = False
+HOST_SCHEME                     = "http://"
+SECURE_PROXY_SSL_HEADER         = None
+SECURE_SSL_REDIRECT             = False
+SESSION_COOKIE_SECURE           = False
+CSRF_COOKIE_SECURE              = False
+SECURE_HSTS_SECONDS             = None
+SECURE_HSTS_INCLUDE_SUBDOMAINS  = False
+SECURE_FRAME_DENY               = False
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -184,30 +195,46 @@ SITE_ID = 1
 # CSRF_TRUSTED_ORIGINS = ['https://*.my.digiers.sdm.dev.sdmdigital.id']
 
 if DEBUG is False:
-    SESSION_COOKIE_SECURE = True
-    SECURE_BROWSER_XSS_FILTER = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_SECONDS = 31536000
-    SECURE_REDIRECT_EXEMPT = []
-    SECURE_SSL_REDIRECT = True
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    # # SESSION_COOKIE_SECURE = True
+    # # SECURE_BROWSER_XSS_FILTER = True
+    # # SECURE_CONTENT_TYPE_NOSNIFF = True
+    # # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    # # SECURE_HSTS_SECONDS = 31536000
+    # # SECURE_REDIRECT_EXEMPT = []
+    # # SECURE_SSL_REDIRECT = True
+    # # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    CORS_REPLACE_HTTPS_REFERER      = False
+    HOST_SCHEME                     = "http://"
+    SECURE_PROXY_SSL_HEADER         = None
+    SECURE_SSL_REDIRECT             = False
+    SESSION_COOKIE_SECURE           = False
+    CSRF_COOKIE_SECURE              = False
+    SECURE_HSTS_SECONDS             = None
+    SECURE_HSTS_INCLUDE_SUBDOMAINS  = False
+    SECURE_FRAME_DENY               = False
 
-    ALLOWED_HOSTS = ['www.domain-kita.com']
+    ALLOWED_HOSTS = ['*']
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #         'NAME': 'db_name',
+    #         'USER': 'db_user',
+    #         'PASSWORD': 'db_password',
+    #         'HOST': 'www.domain-kita.com',
+    #         'PORT': '5432',
+    #     }
+    # }
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'db_name',
-            'USER': 'db_user',
-            'PASSWORD': 'db_password',
-            'HOST': 'www.domain-kita.com',
-            'PORT': '5432',
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
 
-    PAYPAL_CLIENT_ID = env('PAYPAL_LIVE_CLIENT_ID')
-    PAYPAL_SECRET_ID = env('PAYPAL_LIVE_SECRET_ID')
+
+    PAYPAL_CLIENT_ID = 'AdELVoue4pmZp0PMOhxqDJrDVyhNjp3Ii-X_PRRQwCsuIJ5MFMxqk6s8VCHMYOYTF_Evnj5s9_Oq5cPB'
+    PAYPAL_SECRET_ID = 'EJ85WPALErQ07i5YjoEQaCyIEA3qY_GRnP_VfOnEVWeB5zvWPi7pM-pvbI4gvf2sh52IsVX5k0bC3ANP'
     PAYPAL_TEST=False
-    PAYPAL_RECEIVER_EMAIL = env('PAYPAL_RECEIVER_EMAIL')
+    PAYPAL_RECEIVER_EMAIL = 'PAYPAL_tiffanyfebie@gmail.com'
